@@ -84,17 +84,22 @@ export KOPS_STATE_STORE=s3://kops.k8s.kops.com
 
  1. If you wish to update the cluster worker node sizes use below command 
    ```sh 
-   kops edit ig --name=CHANGE_TO_CLUSTER_NAME nodes
+   1. kops edit ig --name=CHANGE_TO_CLUSTER_NAME nodes
+   2. kops edit cluster kopscluster.k8s.local
    ```
 
-1. Create kubernetes cluser
+1. Create/build the kubernetes cluser
     ```sh
-    kops update cluster demo.k8s.valaxy.net --yes
+    kops update cluster kopscluster.k8s.local --yes --state=s3://kops.k8s.kops.com
+
+# This will take a few minutes to create............
+
+After a few mins, run the below command to verify the cluster installation.
     ```
 
 1. Validate your cluster
      ```sh
-      kops validate cluster
+      kops validate cluster kopscluster.k8s.local 
     ```
 
 1. To list nodes
