@@ -52,8 +52,8 @@ step 2. install AWSCLI
 8. create an S3 bucket
 # Create an Amazon S3 bucket for the Kubernetes state store
   ```sh
-    aws s3 mb s3://kops.k8s.kops.com
-  # aws s3api create-bucket --bucket kubernetes-aws-io 
+   1. aws s3 mb s3://kops.k8s.kops.com
+   2. aws s3api create-bucket --bucket kubernetes-aws-io 
   Kops needs a “state store” to store configuration information of the cluster.  For example, how many nodes, instance type of each node, and Kubernetes version.
   # This post uses the bucket name kops.k8s.kops.com. Bucket names must be unique; you have to use a different name. Create an S3 bucket:
  
@@ -73,15 +73,16 @@ export KOPS_STATE_STORE=s3://kops.k8s.kops.com
 
 12. Create kubernetes cluster definitions on S3 bucket
    ```sh
-   kops create cluster --name=demo.k8s.valaxy.net --cloud=aws --zones=ap-south-1b  --dns-zone=valaxy.net --dns private
-
-# The Kops CLI can be used to create a highly available cluster, with multiple master nodes spread across multiple Availability Zones. 
-# kops create cluster --name cluster.kubernetes-aws.io --zones us-west-2a --state s3://kubernetes-aws-io --node-count=2 --yes
 # Create a cluster in AWS in a single zone. 
-  kops create cluster --name=k8s-cluster.example.com --state=s3://my-state-store --zones=us-east-1a --node-count=2
-    
+     1. kops create cluster --name=k8s-cluster.example.com --state=s3://my-state-store --zones=us-east-1a --node-count=2
+     2. kops create cluster --name=kops.k8s.kops.com --cloud=aws --zones=us-west-2b  --dns-zone=kops.com --dns private
+# The Kops CLI can be used to create a highly available cluster, with multiple master nodes spread across multiple Availability Zones.   
+     1. kops create cluster --name=kopsk8scluster.k8s.local --state=s3://kops.k8s.kops.com --zones=us-east-1a --node-count=1 
+        --node-size=t2.micro --master-size=t2.micro  --master-volume-size=8 --node-volume-size=8
+     2. kops create cluster --name cluster.kubernetes-aws.io --zones us-west-2a --state s3://kubernetes-aws-io --yes
+         #this will start cluster imediately 
 
-1. If you wish to update the cluster worker node sizes use below command 
+ 1. If you wish to update the cluster worker node sizes use below command 
    ```sh 
    kops edit ig --name=CHANGE_TO_CLUSTER_NAME nodes
    ```
