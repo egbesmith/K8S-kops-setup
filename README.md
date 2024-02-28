@@ -1,3 +1,5 @@
+# kops
+The easiest way to get a production grade Kubernetes cluster up and running.
 # Kubernetes and Kops overview
 Kubernetes is an open source, container orchestration platform. Applications packaged as Docker images can be easily deployed, scaled, and managed in a Kubernetes cluster. 
 # Some of the key features of Kubernetes are:
