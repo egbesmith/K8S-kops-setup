@@ -78,31 +78,6 @@ Suggestions:
  * the ubuntu user is specific to Ubuntu. If not using Ubuntu please use the appropriate user based on your OS.
  * read about installing addons at: https://kops.sigs.k8s.io/addons.
 
-12. If you wish to update the cluster worker node sizes use below command 
-   ```sh 
-   kops edit ig --name=CHANGE_TO_CLUSTER_NAME nodes
-   ```
-
-1. Create kubernetes cluser
-    ```sh
-    kops update cluster demo.k8s.valaxy.net --yes
-    ```
-
-1. Validate your cluster
-     ```sh
-      kops validate cluster
-    ```
-
-1. To list nodes
-   ```sh
-   kubectl get nodes
-   ```
-
-1. To delete cluster
-    ```sh
-     kops delete cluster demo.k8s.valaxy.net --yes
-    ```
-   
 #### Deploying Nginx pods on Kubernetes
 1. Deploying Nginx Container
 2. Expose the deployment as service. This will create an ELB in front of those 2 containers and allow us to publicly access them.
