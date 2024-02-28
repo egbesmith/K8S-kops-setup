@@ -1,0 +1,69 @@
+# Install kubectl binary with curl on Linux 
+
+step 1 Download the latest release with the command:
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+# To download a specific version, replace the $(curl -L -s https://dl.k8s.io/release/stable.txt) portion of the command with the specific version.
+   For example, to download version 1.29.2 on Linux x86-64, type: # curl -LO "https://dl.k8s.io/release/v1.29.2/bin/linux/amd64/kubectl"
+
+# And for Linux ARM64, type:
+curl -LO https://dl.k8s.io/release/v1.29.2/bin/linux/arm64/kubectl
+
+step 2 Validate the binary (optional)
+
+1. Download the kubectl checksum file:
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+   
+2. Validate the kubectl binary against the checksum file:
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+3. If valid, the output is:
+If valid, the output is:
+kubectl: OK
+
+If the check fails, sha256 exits with nonzero status and prints output similar to:
+kubectl: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
+Note: Download the same version of the binary and checksum.
+
+step 3: To install the latest minikube stable release on x86-64 Linux using binary download:
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+step 4: create cluster by running the command 
+ minikube start 
+N.B. if using mac or window what happens is this
+- a VM with a single node kubernetes cluster
+
+step 5: if minikube fails to start 
+1. Install Docker 18.09 or higher (20.10 or higher is recommended) in amd64 or arm64 system.
+2. Start a cluster using the docker driver:
+minikube start --driver=docker
+3. To make docker the default driver:
+minikube config set driver docker
+
+# deployment 
+1. pod.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+docker run -d nginx:1.14.2 --name nginx -p 80:80
+2. kubectl create -f pod.yml
+3. kubectl get pods
+4. kubectl get pods -o wide
+5. loggin into your cluster 
+   minikube ssh
+6. curl the ip address
+7. to debug our application
+kubectl logs <name of pod>
+kubectle describe pod <name of pod>  #this show the start of the pod, is it runnx etc
+
+N.B to get advance capability on our pod such as auto scaling, auto healing, we from pods to deployment.
