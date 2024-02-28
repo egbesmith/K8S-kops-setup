@@ -1,4 +1,24 @@
-# K8S-kops-setup
+# Kubernetes and Kops overview
+Kubernetes is an open source, container orchestration platform. Applications packaged as Docker images can be easily deployed, scaled, and managed in a Kubernetes cluster. 
+# Some of the key features of Kubernetes are:
+
+1. Self-healing
+Failed containers are restarted to ensure that the desired state of the application is maintained. If a node in the cluster dies, then the containers are rescheduled on a different node. Containers that do not respond to application-defined health check are terminated, and thus rescheduled.
+2. Horizontal scaling
+Number of containers can be easily scaled up and down automatically based upon CPU utilization, or manually using a command.
+3. Service discovery and load balancing
+Multiple containers can be grouped together discoverable using a DNS name. The service can be load balanced with integration to the native LB provided by the cloud provider.
+4. Application upgrades and rollbacks
+Applications can be upgraded to a newer version without an impact to the existing one. If something goes wrong, Kubernetes rolls back the change.
+Kops, short for Kubernetes Operations, is a set of tools for installing, operating, and deleting Kubernetes clusters in the cloud. A rolling upgrade of an older version of Kubernetes to a new version can also be performed. It also manages the cluster add-ons. After the cluster is created, the usual kubectl CLI can be used to manage resources in the cluster.
+
+# what is kops?
+
+kops will not only help you create, destroy, upgrade and maintain production-grade, highly available, Kubernetes cluster, but it will also provision the necessary cloud infrastructure. kops can be use in any cloud provider: AWS (Amazon Web Services) and GCE (Google Cloud Platform) are currently officially supported, with DigitalOcean, Hetzner and OpenStack in beta support, and Azure in alpha# K8S-kops-setup
+
+There is no need to download the Kubernetes binary distribution for creating a cluster using kops. However, you do need to download the kops CLI. It then takes care of downloading the right Kubernetes binary in the cloud, and provisions the cluster.
+
+# The different download options for kops are explained at github.com/kubernetes/kops#installing. On MacOS, the easiest way to install kops is using the brew package manager.
 r# Setup Kubernetes (K8s) Cluster on AWS
 
 
