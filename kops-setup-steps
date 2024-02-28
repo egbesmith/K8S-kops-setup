@@ -71,7 +71,7 @@ export KOPS_STATE_STORE=s3://kops.k8s.kops.com
     ssh-keygen
    ```
 
-1. Create kubernetes cluster definitions on S3 bucket
+12. Create kubernetes cluster definitions on S3 bucket
    ```sh
    kops create cluster --name=demo.k8s.valaxy.net --cloud=aws --zones=ap-south-1b  --dns-zone=valaxy.net --dns private
 
@@ -79,28 +79,7 @@ export KOPS_STATE_STORE=s3://kops.k8s.kops.com
 # kops create cluster --name cluster.kubernetes-aws.io --zones us-west-2a --state s3://kubernetes-aws-io --node-count=2 --yes
 # Create a cluster in AWS in a single zone. 
   kops create cluster --name=k8s-cluster.example.com --state=s3://my-state-store --zones=us-east-1a --node-count=2
-
-# In this command:
-
---zones
-Defines the zones in which the cluster is going to be created. Multiple comma-separated zones can be specified to span the cluster across multiple zones.
---name
-Defines the cluster’s name.
---state
-Points to the S3 bucket that is the state store.
---yes
-Immediately creates the cluster. Otherwise, only the cloud resources are created and the cluster needs to be started explicitly using the command kops update --yes. If the cluster needs to be edited, then the kops edit cluster command can be used.
-This starts a single master and two worker node Kubernetes cluster. The master is in an Auto Scaling group and the worker nodes are in a separate group. By default, the master node is m3.medium and the worker node is t2.medium. Master and worker nodes are assigned separate IAM roles as well.
-   
-    ```
-# kops create cluster --node-count=2 --node-size=t2.
-
-Suggestions:
- * validate cluster: kops validate cluster --wait 10m
- * list nodes: kubectl get nodes --show-labels
- * ssh to a control-plane node: ssh -i ~/.ssh/id_rsa ubuntu@api.kops-cluster.kops.com
- * the ubuntu user is specific to Ubuntu. If not using Ubuntu please use the appropriate user based on your OS.
- * read about installing addons at: https://kops.sigs.k8s.io/addons.
+    
 
 1. If you wish to update the cluster worker node sizes use below command 
    ```sh 
